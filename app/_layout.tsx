@@ -1,37 +1,48 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useEffect } from 'react';
-import 'react-native-reanimated';
+import { View, Text, Image } from "react-native";
+import React, { useEffect, ReactNode } from "react";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { SplashScreen, Stack } from "expo-router";
+import { useFonts } from "expo-font";
 
-import { useColorScheme } from '@/hooks/useColorScheme';
+const TabIcon = ({ icon, color, name, focused }: any): ReactNode => {
+  return (
+    <View>
+      <Image
+        source={icon}
+        resizeMode="contain"
+        tintColor={color}
+        className="w-6 h-6"
+      />
+      <Text className={`${focused ? "font-semibold" : "font-normal"} text-xs`}>
+        {name}
+      </Text>
+    </View>
+  );
+};
 
-// Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
-
-export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
+const RootLayout = () => {
+  const [fontLoaded, error] = useFonts({
+    "Mont-Bold": require("@/assets/fonts/Mont-Heavy.otf"),
+    "Mont-Light": require("@/assets/fonts/Mont-ExtraLight.otf"),
   });
 
   useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
+    if (error) throw error;
+    if (fontLoaded) SplashScreen.hideAsync();
+  }, [fontLoaded, error]);
 
-  if (!loaded) {
+  if (!fontLoaded && !error) {
     return null;
   }
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-    </ThemeProvider>
+    <Stack>
+      <Stack.Screen name="index" options={{ headerShown: false }} />
+      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+    </Stack>
   );
-}
+};
+
+export default RootLayout;
