@@ -4,22 +4,6 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { SplashScreen, Stack } from "expo-router";
 import { useFonts } from "expo-font";
 
-const TabIcon = ({ icon, color, name, focused }: any): ReactNode => {
-  return (
-    <View>
-      <Image
-        source={icon}
-        resizeMode="contain"
-        tintColor={color}
-        className="w-6 h-6"
-      />
-      <Text className={`${focused ? "font-semibold" : "font-normal"} text-xs`}>
-        {name}
-      </Text>
-    </View>
-  );
-};
-
 SplashScreen.preventAutoHideAsync();
 const RootLayout = () => {
   const [fontLoaded, error] = useFonts({

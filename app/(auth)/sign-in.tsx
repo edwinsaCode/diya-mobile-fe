@@ -7,33 +7,10 @@ import Button from "@/components/Button";
 import { Link } from "expo-router";
 
 const SignIn = () => {
-  // const [isSubmitting, setSubmitting] = useState(false);
   const [form, setForm] = useState({
     email: "",
     password: "",
   });
-
-  // const submit = async () => {
-  //   if (form.email === "" || form.password === "") {
-  //     Alert.alert("Error", "Please fill in all fields");
-  //   }
-
-  //   setSubmitting(true);
-
-  //     try {
-  //       await signIn(form.email, form.password);
-  //       const result = await getCurrentUser();
-  //       setUser(result);
-  //       setIsLogged(true);
-
-  //       Alert.alert("Success", "User signed in successfully");
-  //       router.replace("/Home");
-  //     } catch (error) {
-  //       Alert.alert("Error", error.message);
-  //     } finally {
-  //       setSubmitting(false);
-  //     }
-  //   };
 
   return (
     <SafeAreaView className="bg-primary h-full">
